@@ -29,6 +29,6 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @PostMapping("/api/v1/create.user")
-    public createUser(@RequestBody Map<String, String> params, Http
+//    @PostMapping("/api/v1/create.user")
+//    public createUser(@RequestBody Map<String, String> params, Http
 }
