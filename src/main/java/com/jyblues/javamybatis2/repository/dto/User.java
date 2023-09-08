@@ -12,9 +12,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    private String id;
-    private String user_id;
-    private String user_nm;
+    private long id;
+    private String name;
     private String password;
     private String access_token;
     private String email;

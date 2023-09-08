@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
+
+    public int createAnUser(String name, String password, String email, String phone) {
+        return userMapper.createAnUser(name, password, email, phone);
+    }
 
     @Override
     public List<User> getUsers() {
@@ -18,8 +22,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findUserById(String id)
-    {
+    public User findUserById(String id) {
         return userMapper.findUserById(id);
     }
 }

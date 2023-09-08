@@ -6,6 +6,9 @@ import com.jyblues.javamybatis2.repository.dto.User;
 import java.util.List;
 
 public interface UserService {
-    public List<User> getUsers();
-    public User findUserById(String id);
+    int createAnUser(String name, String password, String email, String phone);
+
+    List<User> getUsers();
+
+    User findUserById(String id);
 }
