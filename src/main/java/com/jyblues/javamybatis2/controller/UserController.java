@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,14 +26,14 @@ public class UserController {
     }
 
     @GetMapping("/api/v1/users")
-    public List<User> user() {
-        return userService.getUsers();
+    public List<User> users() {
+        return userService.getAll();
     }
 
     @GetMapping("/api/v1/user/{id}")
     public ResponseEntity<Response.Base> findUserById(@PathVariable("id") String id) {
         try {
-            User user = userService.findUserById(id);
+            User user = userService.findOneById(id);
             if (user == null) {
                 return new ResponseEntity<>(new Response.Error(ErrorCode.NOT_FOUND), HttpStatus.NOT_FOUND);
             }
@@ -54,7 +55,7 @@ public class UserController {
         System.out.println(params.toString());
 
         try {
-            int success = userService.createAnUser(params.getName(), params.getPassword(), params.getEmail(), params.getPhone());
+            int success = userService.createOne(params.getName(), params.getPassword(), params.getEmail(), params.getPhone());
 
             Response.User.Created res = new Response.User.Created();
             res.setId(success);
@@ -71,10 +72,37 @@ public class UserController {
         }
     }
 
-    @PostMapping("/api/v1/user/modify.password")
-    public ResponseEntity<Response.Base> modifyPasswordByUser(@RequestBody Request.User.ModifyPassword params) {
-        Response.User.ModifyPassword res = new Response.User.ModifyPassword();
+    @PostMapping("/api/v1/user/check.password")
+    public ResponseEntity<Response.Base> checkPassword(@RequestBody Request.User.CheckPassword params) {
+        try {
+            List<String> fields = new ArrayList<>();
+            fields.add("password");
+            User user = userService.getCustomOneById(fields);
+            if (user != null) {
+                if (!params.getCurrent_password().equals(user.getPassword())) {
+                    return new ResponseEntity<>(new Response.Error(ErrorCode.FAILURE), HttpStatus.OK);
+                }
 
-        return new ResponseEntity<>(res, HttpStatus.OK);
+                return new ResponseEntity<>(new Response.Error(ErrorCode.INVALID), HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>(new Response.Error(ErrorCode.NOT_FOUND), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            MyLogger.logError(e);
+
+            return new ResponseEntity<>(new Response.Error(ErrorCode.UNKNOWN), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/api/v1/user/modify.password")
+    public ResponseEntity<Response.Base> modifyPassword(@RequestBody Request.User.ModifyPassword params) {
+        try {
+            userService.modifyPassword(params.getId(), params.getNew_password());
+
+            Response.User.ModifyPassword res = new Response.User.ModifyPassword();
+            return new ResponseEntity<>(res, HttpStatus.OK);
+        } catch (Exception e) {
+            MyLogger.logError(e);
+            return new ResponseEntity<>(new Response.Error(ErrorCode.UNKNOWN), HttpStatus.BAD_REQUEST);
+        }
     }
 }

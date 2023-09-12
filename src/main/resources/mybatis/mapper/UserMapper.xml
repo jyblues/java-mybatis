@@ -2,17 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.jyblues.javamybatis2.repository.dto.UserMapper">
-    <insert id="createAnUser">
+    <insert id="createOne">
         INSERT INTO users (name, email, password, phone) VALUES (#{name}, #{email}, #{password}, #{phone});
     </insert>
 
-    <select id="getUsers" resultType="com.jyblues.javamybatis2.repository.dto.User">
+    <select id="getAll" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT *
         FROM users;
     </select>
 
-    <select id="findUserById" resultType="com.jyblues.javamybatis2.repository.dto.User">
+    <select id="findOneById" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT *
         FROM users WHERE id=#{id}
+    </select>
+
+    <select id="getCustomOneById" resultType="com.jyblues.javamybatis2.repository.dto.User">
+        SELECT 
+            <foreach item="item" index="index" collection="fields">
+                ${item}
+            </foreach>
+        FROM users WHERE id=#{id}
+    </select>
+
+    <select id="modifyPassword" resultType="com.jyblues.javamybatis2.repository.dto.User">
+        UPDATE users
+        SET password=${newPassword}
+        WHERE id=#{id}
     </select>
 </mapper>

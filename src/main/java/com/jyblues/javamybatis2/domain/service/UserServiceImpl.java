@@ -12,17 +12,29 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
 
-    public int createAnUser(String name, String password, String email, String phone) {
-        return userMapper.createAnUser(name, password, email, phone);
+    @Override
+    public int createOne(String name, String password, String email, String phone) {
+        return userMapper.createOne(name, password, email, phone);
     }
 
     @Override
-    public List<User> getUsers() {
-        return userMapper.getUsers();
+    public List<User> getAll() {
+        return userMapper.getAll();
     }
 
     @Override
-    public User findUserById(String id) {
-        return userMapper.findUserById(id);
+    public User findOneById(String id) {
+        return userMapper.findOneById(id);
+    }
+
+    @Override
+    public User getCustomOneById(List<String> customFields) {
+        return userMapper.getCustomOneById(customFields);
+    }
+
+    @Override
+    public void modifyPassword(long id, String newPassword)
+    {
+        userMapper.modifyPassword(id, newPassword);
     }
 }

@@ -6,9 +6,13 @@ import com.jyblues.javamybatis2.repository.dto.User;
 import java.util.List;
 
 public interface UserService {
-    int createAnUser(String name, String password, String email, String phone);
+    int createOne(String name, String password, String email, String phone);
 
-    List<User> getUsers();
+    List<User> getAll();
 
-    User findUserById(String id);
+    User findOneById(String id);
+
+    User getCustomOneById(List<String> customFields);
+
+    void modifyPassword(long id, String newPassword);
 }

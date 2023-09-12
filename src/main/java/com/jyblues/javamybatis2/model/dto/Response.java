@@ -58,6 +58,13 @@ public class Response {
         @Getter
         @Setter
         @NoArgsConstructor
+        public static class CheckPassword extends Ok {
+            private String current_password;
+        }
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
         public static class ModifyPassword extends Ok {
 
         }

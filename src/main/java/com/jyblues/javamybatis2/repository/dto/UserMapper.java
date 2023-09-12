@@ -8,8 +8,13 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-    int createAnUser(String name, String password, String email, String phone);
-    List<User> getUsers();
+    int createOne(String name, String password, String email, String phone);
 
-    User findUserById(String id);
+    List<User> getAll();
+
+    User findOneById(String id);
+
+    User getCustomOneById(List<String> customFields);
+
+    void modifyPassword(long id, String newPassword);
 }

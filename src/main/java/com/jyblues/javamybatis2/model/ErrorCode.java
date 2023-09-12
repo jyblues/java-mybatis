@@ -8,7 +8,9 @@ public enum ErrorCode {
     FAILURE(-1, "Failure"),
     UNKNOWN(-2, "Unknown"),
     NOT_FOUND(1, "Not Found"),
-    ALREADY_EXISTS(2, "Already Exists");
+    ALREADY_EXISTS(2, "Already Exists"),
+    INVALID(3, "Invalid");
+
 
     private int code;
     private String detail;
@@ -17,4 +19,4 @@ public enum ErrorCode {
         this.code = code;
         this.detail = detail;
     }
-    }
+}

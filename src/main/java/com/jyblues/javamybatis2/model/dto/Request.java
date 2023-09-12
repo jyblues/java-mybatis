@@ -32,6 +32,12 @@ public class Request {
 
         @Setter
         @Getter
+        public static class CheckPassword {
+            private String current_password;
+        }
+
+        @Setter
+        @Getter
         public static class ModifyPassword {
             private long id;
             private String new_password;
