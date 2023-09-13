@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteOne(long id) {
+        userMapper.deleteOne(id);
+    }
+
+    @Override
     public List<User> getAll() {
         return userMapper.getAll();
     }

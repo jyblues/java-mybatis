@@ -10,6 +10,8 @@ import java.util.List;
 public interface UserMapper {
     int createOne(String name, String password, String email, String phone);
 
+    void deleteOne(long id);
+
     List<User> getAll();
 
     User findOneById(long id);

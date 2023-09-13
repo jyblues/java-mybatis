@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +47,27 @@ public class UserController {
             return new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {
             MyLogger.logError(e);
+            return new ResponseEntity<>(new Response.Error(ErrorCode.UNKNOWN), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/api/v1/user/delete/{id}")
+    public ResponseEntity<Response.Base> deleteOneById(@PathVariable("id") long id) {
+        MyLogger.logInfo("/api/v1/user/delete/" + id);
+
+        try {
+            List<String> fields = new ArrayList<>();
+            fields.add("id");
+            User user = userService.getCustomOneById(id, fields);
+            if (user == null) {
+                return new ResponseEntity<>(new Response.Error(ErrorCode.NOT_FOUND), HttpStatus.OK);
+            }
+
+            userService.deleteOne(id);
+
+            return new ResponseEntity<>(new Response.Error(ErrorCode.OK), HttpStatus.OK);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(new Response.Error(ErrorCode.UNKNOWN), HttpStatus.BAD_REQUEST);
         }
     }

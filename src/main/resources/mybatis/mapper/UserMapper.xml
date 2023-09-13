@@ -3,8 +3,15 @@
 
 <mapper namespace="com.jyblues.javamybatis2.repository.dto.UserMapper">
     <insert id="createOne">
-        INSERT INTO users (name, email, password, phone) VALUES (#{name}, #{email}, #{password}, #{phone});
+        INSERT INTO users (name, email, password, phone)
+        VALUES (#{name}, #{email}, #{password}, #{phone});
     </insert>
+
+    <delete id="deleteOne">
+        DELETE
+        FROM users
+        WHERE id = #{id};
+    </delete>
 
     <select id="getAll" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT *
@@ -13,25 +20,28 @@
 
     <select id="findOneById" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT *
-        FROM users WHERE id=#{id}
+        FROM users
+        WHERE id = #{id}
     </select>
 
     <select id="findOneByEmail" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT *
-        FROM users WHERE email=#{email}
+        FROM users
+        WHERE email = #{email}
     </select>
 
     <select id="getCustomOneById" resultType="com.jyblues.javamybatis2.repository.dto.User">
-        SELECT 
-            <foreach item="item" index="index" collection="fields">
-                ${item}
-            </foreach>
+        SELECT
+        <foreach item="item" index="index" collection="fields">
+            ${item}
+        </foreach>
         FROM users WHERE id=#{id}
     </select>
 
     <update id="modifyPassword">
         UPDATE users
         SET password=#{newPassword}
-        WHERE id=#{id}
+        WHERE id = #{id}
     </update>
+
 </mapper>
