@@ -25,6 +25,7 @@ public class Response {
             this.errorCode = errorCode;
             this.errorMessage = "";
         }
+
         public Error(ErrorCode errorCode, String errorMessage) {
             super();
 
@@ -61,14 +62,5 @@ public class Response {
         public static class CheckPassword extends Ok {
             private String current_password;
         }
-
-        @Getter
-        @Setter
-        @NoArgsConstructor
-        public static class ModifyPassword extends Ok {
-
-        }
     }
-
-
 }

@@ -33,7 +33,8 @@ public class Request {
         @Setter
         @Getter
         public static class CheckPassword {
-            private String current_password;
+            private long id;
+            private String password;
         }
 
         @Setter

@@ -12,9 +12,11 @@ public interface UserMapper {
 
     List<User> getAll();
 
-    User findOneById(String id);
+    User findOneById(long id);
 
-    User getCustomOneById(List<String> customFields);
+    User findOneByEmail(String email);
+
+    User getCustomOneById(long id, List<String> fields);
 
     void modifyPassword(long id, String newPassword);
 }

@@ -16,6 +16,11 @@
         FROM users WHERE id=#{id}
     </select>
 
+    <select id="findOneByEmail" resultType="com.jyblues.javamybatis2.repository.dto.User">
+        SELECT *
+        FROM users WHERE email=#{email}
+    </select>
+
     <select id="getCustomOneById" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT 
             <foreach item="item" index="index" collection="fields">
@@ -24,9 +29,9 @@
         FROM users WHERE id=#{id}
     </select>
 
-    <select id="modifyPassword" resultType="com.jyblues.javamybatis2.repository.dto.User">
+    <update id="modifyPassword">
         UPDATE users
-        SET password=${newPassword}
+        SET password=#{newPassword}
         WHERE id=#{id}
-    </select>
+    </update>
 </mapper>

@@ -23,18 +23,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findOneById(String id) {
+    public User findOneById(long id) {
         return userMapper.findOneById(id);
     }
 
-    @Override
-    public User getCustomOneById(List<String> customFields) {
-        return userMapper.getCustomOneById(customFields);
+    public User findOneByEmail(String email) {
+        return userMapper.findOneByEmail(email);
     }
 
     @Override
-    public void modifyPassword(long id, String newPassword)
-    {
+    public User getCustomOneById(long id, List<String> fields) {
+        return userMapper.getCustomOneById(id, fields);
+    }
+
+    @Override
+    public void modifyPassword(long id, String newPassword) {
         userMapper.modifyPassword(id, newPassword);
     }
 }
