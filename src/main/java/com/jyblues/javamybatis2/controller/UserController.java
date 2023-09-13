@@ -8,10 +8,13 @@ import com.jyblues.javamybatis2.model.dto.Response;
 import com.jyblues.javamybatis2.util.log.MyLogger;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.HandlerMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +56,6 @@ public class UserController {
 
     @DeleteMapping("/api/v1/user/delete/{id}")
     public ResponseEntity<Response.Base> deleteOneById(@PathVariable("id") long id) {
-        MyLogger.logInfo("/api/v1/user/delete/" + id);
-
         try {
             List<String> fields = new ArrayList<>();
             fields.add("id");
@@ -66,15 +67,14 @@ public class UserController {
             userService.deleteOne(id);
 
             return new ResponseEntity<>(new Response.Error(ErrorCode.OK), HttpStatus.OK);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(new Response.Error(ErrorCode.UNKNOWN), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PostMapping("/api/v1/new.user")
-    public ResponseEntity<Response.Base> createUser(@RequestBody Request.User.Create params) {
-        System.out.println(params.toString());
+    public ResponseEntity<Response.Base> createUser(@RequestBody Request.User.Create params, HttpServletRequest request) {
+        MyLogger.logInfo(request.getRequestURI() + " params=" + params.toString());
 
         try {
             int success = userService.createOne(params.getName(), params.getPassword(), params.getEmail(), params.getPhone());
@@ -85,8 +85,7 @@ public class UserController {
             res.setEmail(params.getEmail());
             res.setPhone(params.getPhone());
             return new ResponseEntity<>(res, HttpStatus.OK);
-        } catch (DataIntegrityViolationException e) {
-            MyLogger.logError(e);
+        } catch (DuplicateKeyException e) {
             return new ResponseEntity<>(new Response.Error(ErrorCode.ALREADY_EXISTS), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             MyLogger.logError(e);
