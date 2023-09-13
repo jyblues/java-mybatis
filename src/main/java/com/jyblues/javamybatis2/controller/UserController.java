@@ -7,15 +7,12 @@ import com.jyblues.javamybatis2.repository.dto.User;
 import com.jyblues.javamybatis2.model.dto.Response;
 import com.jyblues.javamybatis2.util.log.MyLogger;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.HandlerMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,7 +69,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/api/v1/new.user")
+    @PostMapping("/api/v1/signup")
     public ResponseEntity<Response.Base> createUser(@RequestBody Request.User.Create params, HttpServletRequest request) {
         MyLogger.logInfo(request.getRequestURI() + " params=" + params.toString());
 
