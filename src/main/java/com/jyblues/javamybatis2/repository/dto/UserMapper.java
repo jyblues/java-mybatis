@@ -20,5 +20,7 @@ public interface UserMapper {
 
     User getCustomOneById(long id, List<String> fields);
 
+    User getCustomOneByEmail(String email, List<String> fields);
+
     void modifyPassword(long id, String newPassword);
 }

@@ -32,10 +32,18 @@
 
     <select id="getCustomOneById" resultType="com.jyblues.javamybatis2.repository.dto.User">
         SELECT
-        <foreach item="item" index="index" collection="fields">
+        <foreach item="item" index="index" collection="fields" separator=",">
             ${item}
         </foreach>
         FROM users WHERE id=#{id}
+    </select>
+
+    <select id="getCustomOneByEmail" resultType="com.jyblues.javamybatis2.repository.dto.User">
+        SELECT
+        <foreach item="item" index="index" collection="fields" separator=",">
+            ${item}
+        </foreach>
+        FROM users WHERE email=#{email}
     </select>
 
     <update id="modifyPassword">

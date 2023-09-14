@@ -52,8 +52,16 @@ public class Response {
         @Getter
         @Setter
         @NoArgsConstructor
-        public static class Created extends Info {
+        public static class SignUp extends Info {
 
+        }
+
+        @Getter
+        @Setter
+        @NoArgsConstructor
+        public static class SignIn extends Info {
+            private String accesToken;
+            private String refreshToken;
         }
 
         @Getter

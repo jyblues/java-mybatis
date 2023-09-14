@@ -11,7 +11,7 @@ public class Request {
     public static class User {
         @Getter
         @Setter
-        public static class Create {
+        public static class SignUp {
             private String name;
             private String email;
             private String password;
@@ -20,6 +20,13 @@ public class Request {
             public String toString() {
                 return "name=" + this.name + " email=" + this.email + " phone=" + this.phone + " password=" + this.password;
             }
+        }
+        
+        @Getter
+        @Setter
+        public static class SignIn {
+            private String email;
+            private String password;
         }
 
         @Setter

@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getCustomOneByEmail(String email, List<String> fields) {
+        return userMapper.getCustomOneByEmail(email, fields);
+    }
+
+
+    @Override
     public void modifyPassword(long id, String newPassword) {
         userMapper.modifyPassword(id, newPassword);
     }

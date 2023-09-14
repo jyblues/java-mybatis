@@ -10,7 +10,8 @@ public enum ErrorCode {
     NOT_FOUND(1, "Not Found"),
     ALREADY_EXISTS(2, "Already Exists"),
     INVALID(3, "Invalid"),
-    SAME_VALUE(4, "Same Password");
+    SAME_VALUE(4, "Same Password"),
+    INVALID_PASSWORD(5, "Invalid Password");
 
 
     private int code;

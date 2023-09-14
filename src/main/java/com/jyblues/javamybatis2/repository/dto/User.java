@@ -15,9 +15,10 @@ public class User {
     private long id;
     private String name;
     private String password;
-    private String access_token;
     private String email;
     private String phone;
+    private String access_token;
+    private String refresh_token;
     private Timestamp created_at;
     private Timestamp updated_at;
     private Timestamp deleted_at;
